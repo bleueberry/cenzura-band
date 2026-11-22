@@ -13,8 +13,14 @@ create table if not exists public.events (
   created_at timestamptz not null default now()
 );
 
+alter table public.events add column if not exists ticket_url text not null default '';
+
 alter table public.admin_users enable row level security;
 alter table public.events enable row level security;
+
+grant select on public.admin_users to anon, authenticated;
+grant select on public.events to anon, authenticated;
+grant insert, update, delete on public.events to authenticated;
 
 create policy "admins can read admin list" on public.admin_users for select to authenticated
   using (user_id = auth.uid());
