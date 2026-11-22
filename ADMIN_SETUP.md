@@ -10,6 +10,15 @@ The editor is available at `/admin`. It uses Supabase Auth and the `events` tabl
 
 The public site displays the nearest future event marked as published. The same credentials and environment variables can be put in `.env.local` for local development.
 
+## Song suggestions to Telegram
+
+The song suggestion form sends messages through a Telegram bot. Create one with `@BotFather` using `/newbot`, open the new bot and press **Start**, then get your numeric Telegram user ID from `@userinfobot`. Add these Vercel Production environment variables and redeploy:
+
+- `TELEGRAM_BOT_TOKEN` — token from `@BotFather` (keep it secret).
+- `TELEGRAM_CHAT_ID` — your numeric Telegram user ID.
+
+The browser never receives the bot token. Suggestions go directly to the chat with your bot after you have started it.
+
 ## Ticket links
 
 The event editor accepts the MuzaTicket iframe event URL in the ticket link field. Run lter table public.events add column if not exists ticket_url text not null default ''; once in Supabase SQL Editor to add the column to an existing project. When a published event has this URL, the home page shows the ticket link and embedded MuzaTicket checkout. If the provider refuses iframe embedding in a browser, visitors can still open checkout using the button above it.
